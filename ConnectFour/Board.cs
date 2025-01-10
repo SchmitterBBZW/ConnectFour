@@ -1,4 +1,6 @@
-﻿namespace ConnectFour;
+﻿using System.Runtime.InteropServices;
+
+namespace ConnectFour;
 
 public class Board
 {
@@ -9,19 +11,17 @@ public class Board
     private const int COLS = 7;
     private const int CONNECT_HOW_MANY = 4;
 
-    public Board()
-    {
+    private char[][] fields;
+
+    public Board() {
         fields = new char[ROWS][];
-        for (var r = 0; r < fields.Length; r++)
-        {
+        for (var r = 0; r < fields.Length; r++) {
             fields[r] = new char[COLS];
-            for (var c = 0; c < fields[r].Length; c++)
-            {
+            for (var c = 0; c < fields[r].Length; c++) {
                 fields[r][c] = EMPTY;
             }
         }
     }
-    private char[][] fields;
 
     public void Output()
     {
@@ -129,28 +129,28 @@ public class Board
         return col;
     }
 
-    private char[][] GetDiagonals(int r, int c)
+    private char[][] GetDiagonals(int row, int column)
     {
-        // Woe to thee, who entered here, for you dug too deep and unearthed daemons of the otherworld!
-        // https://youtu.be/TDIr9on8Rhw?t=18 https://youtu.be/Mue6Vc_T9Ds https://youtu.be/1T14eOUf-28?t=7
         var raising = new List<char>();
         var falling = new List<char>();
-        for (int i = r, j = c; i >= 0 && j < COLS; i--, j++)
+        for (int i = row, j = column; i >= 0 && j < COLS; i--, j++)
         {
             raising.Add(fields[i][j]);
         }
-        for (int i = r, j = c; i < ROWS && j >= 0; i++, j--)
+        for (int i = row, j = column; i < ROWS && j >= 0; i++, j--)
         {
             raising.Add(fields[i][j]);
         }
-        for (int i = r, j = c; i < ROWS && j < COLS; i++, j++)
+        for (int i = row, j = column; i < ROWS && j < COLS; i++, j++)
         {
             falling.Add(fields[i][j]);
         }
-        for (int i = r, j = c; i >= 0 && j >= 0; i--, j--)
+        for (int i = row, j = column; i >= 0 && j >= 0; i--, j--)
         {
             falling.Add(fields[i][j]);
         }
+        Console.WriteLine(raising.ToArray());
+        Console.WriteLine(falling.ToArray());
         return new char[][] { raising.ToArray(), falling.ToArray() };
     }
 }

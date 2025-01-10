@@ -10,6 +10,8 @@ public class Program
 
         board.Output();
 
+        Console.Write(new char[1, 3]);
+
         while (!finished)
         {
             Console.Write($"Player {player}: ");
